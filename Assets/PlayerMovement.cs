@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxSpeed = 20;
     public bool grounded;
     public LayerMask whatIsGround;
+    
     public float counterMovement = 0.175f;
     private float threshold = 0.01f;
     public float maxSlopeAngle = 35f;
@@ -74,13 +75,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Movement();
+        Movement();
     }
 
     private void Update()
     {
         MyInput();
-        //Lookup();
+        Look();
     }
 
     /// <summary>
@@ -246,7 +247,7 @@ public class PlayerMovement : MonoBehaviour
         orientation.transform.localRotation = Quaternion.Euler(0,desiredX,0);
     }
 
-    private void VounterMovement(float x, float y, Vector2 mag)
+    private void CounterMovement(float x, float y, Vector2 mag)
     {
         if (!grounded || jumping) return;
         
