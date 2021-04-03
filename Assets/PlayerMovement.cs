@@ -201,8 +201,8 @@ public class PlayerMovement : MonoBehaviour
         
         
         //Apply all the forces generated to move player
-        rb.AddForce(orientation.transform.forward * (y * (moveSpeed * sprintScale)) * Time.deltaTime * multiplier * multiplierV);
-        rb.AddForce(orientation.transform.right * (x * (moveSpeed * sprintScale)) * Time.deltaTime * multiplier);
+        rb.AddForce(orientation.transform.forward * y * (moveSpeed * sprintScale) * Time.deltaTime * multiplier * multiplierV);
+        rb.AddForce(orientation.transform.right * x * (moveSpeed * sprintScale) * Time.deltaTime * multiplier);
     }
 
 
