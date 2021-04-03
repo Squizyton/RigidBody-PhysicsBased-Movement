@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Movement
     public float moveSpeed = 4500;
+    public float sprintScale = 1;
     public float maxSpeed = 20;
     public bool grounded;
     public LayerMask whatIsGround;
@@ -94,17 +95,24 @@ public class PlayerMovement : MonoBehaviour
         //Get Y movement. 0 = not moving 1 = moving
         y = Input.GetAxisRaw("Vertical");
 
+        
+        
+        
         //Get Jump Button;
         jumping = Input.GetButton("Jump");
 
         crouching = Input.GetKey(KeyCode.LeftControl);
-        
         
         //Crouching 
         if(Input.GetKeyDown(KeyCode.LeftControl))
             StartCrouch();
         if(Input.GetKeyUp(KeyCode.LeftControl))
             StopCrouch();
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            sprintScale = 2;
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+            sprintScale = 1;
     }
 
     private void StartCrouch()
@@ -139,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
     private void Movement()
     {
         //Extra gravity to make sure player isn't flying
-        rb.AddForce(Vector3.down * Time.deltaTime * 10);
+        rb.AddForce(Vector3.down * (Time.deltaTime * 10));
         
         //Find the actual velocity relative to where player is lookinhg
         Vector2 mag = FindVelRelativeToLook();
@@ -193,8 +201,8 @@ public class PlayerMovement : MonoBehaviour
         
         
         //Apply all the forces generated to move player
-        rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
-        rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
+        rb.AddForce(orientation.transform.forward * (y * (moveSpeed * sprintScale)) * Time.deltaTime * multiplier * multiplierV);
+        rb.AddForce(orientation.transform.right * (x * (moveSpeed * sprintScale)) * Time.deltaTime * multiplier);
     }
 
 
